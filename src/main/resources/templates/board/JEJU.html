@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEJU</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('body').hide().fadeIn(1000);
+            alert('Welcome To JEJU');
+        });
+
+        // 이미지 슬라이드 설정
+        var slideIndex = 0;
+        var slideImages = [
+            '/img/jeju02.png', // 첫 번째 이미지 파일
+            '/img/J(1).png',   // 두 번째 이미지 파일
+            '/img/J(2).png',   // 세 번째 이미지 파일
+            '/img/J(3).png',
+            '/img/J(4).png',
+            '/img/J(5).png',
+            '/img/J(6).png',
+            '/img/J(7).png'
+        // 추가 이미지 파일 경로 (예: './img/J(3).png')
+        ];
+        function changeImage() {
+        $('.article-header img').attr('src', slideImages[slideIndex]); // 현재 슬라이드 인덱스에 해당하는 이미지로 변경
+        slideIndex = (slideIndex + 1) % slideImages.length; // 다음 슬라이드 인덱스로 이동 (순환)
+        }
+        $(document).ready(function () {
+        setInterval(changeImage, 2000); // 1초 간격으로 이미지 변경
+        });
+
+        function showTime() {
+            var currentDate = new Date();
+            var hours = currentDate.getHours();
+            var minutes = currentDate.getMinutes();
+            var seconds = currentDate.getSeconds();
+            var currentTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+            
+            document.getElementById('current-time').innerHTML = currentTime;
+            setTimeout(showTime, 1000);
+        }
+
+        $(document).ready(function() {
+            $('body').hide().fadeIn(1000);
+        });
+
+        $(document).ready(function(){
+        // // 확대 효과를 위해 이미지에 마우스를 올렸을 때 동작하는 이벤트 추가
+        // $('img').hover(function(){
+        //     $(this).animate({width: '+=10%', height: '+=10%'}, 200);
+        // }, function(){
+        //     $(this).animate({width: '-=10%', height: '-=10%'}, 200);
+        // });
+        
+        // 페이지 내부의 링크 클릭 시 부드럽게 스크롤되도록 하는 코드
+        $("a[href^='#']").click(function(e) {
+            e.preventDefault();
+            
+            var position = $($(this).attr("href")).offset().top;
+
+            $("body, html").animate({
+                scrollTop: position
+            }, 500);
+        });
+
+        // 페이지 최상단으로 이동하는 버튼을 만들고, 스크롤 위치에 따라 보이거나 숨기는 코드
+        $('body').append('<div style="display: none; position: fixed; bottom: 20px; right: 20px;" id="toTopButton"><a href="#main-header">Top</a></div>');
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 100) { 
+                $('#toTopButton').fadeIn(); 
+            } else { 
+                $('#toTopButton').fadeOut(); 
+            } 
+        }); 
+        $('#toTopButton').click(function(){ 
+            $("html, body").animate({ scrollTop: 0 }, 600); 
+            return false; 
+        }); 
+
+        $('.article-header').hide().fadeIn(1000);
+
+        // article-body 부분을 초기에 숨김
+        $(".article-body").hide();
+
+        // 이미지를 클릭했을 때 article-body 부분을 표시
+        $(".article-header img").click(function(){
+            $(this).parent().next('.article-body').slideToggle();
+        });
+
+        // 마우스를 올렸을 때 글자 크기를 증가시키는 이벤트를 추가합니다.
+        $('.aside-list li a').hover(function(){
+            $(this).animate({fontSize: '+=2px'}, 100);
+        }, function(){
+            $(this).animate({fontSize: '-=2px'}, 100);
+        });
+
+        // 카테고리 목록을 초기에 숨김
+        $(".aside-list ul").hide();
+
+        // 카테고리 제목을 클릭했을 때 목록을 표시 또는 숨김
+        $(".aside-list > h3").click(function(){
+            $(this).next('ul').slideToggle();
+        });
+    });
+    </script>
+    <style>
+        *{margin: 0; padding: 0;
+            font-family: '맑은 고딕', 'Malgun Gothic', 'Gothic', sans-serif;
+        }
+        a{
+            text-decoration: none;        /*하이퍼링크 밑줄을 지움*/
+        }
+        li{
+            list-style: none;        /*ul, li 불릿을 다 지움*/
+        }
+    </style>
+    <style>
+        body{         /*배경 초록계열*/
+            width: 960px;
+            margin: 0 auto;
+            background: #293529;
+        }
+        #page-wrapper{
+            background: white;
+            margin: 40px 0;
+            padding: 10px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 10px rgb(185, 182, 182);  /*박스 그림자 설정 */
+        }
+    </style>
+    <style>
+        #main-header{
+            padding: 40px 50px; /*JEJU 머릿글 설정*/
+        }
+    </style>
+    <style>
+        #main-navigation{
+            border-top: 1px solid #c8c8c8;
+            border-bottom: 1px solid #c8c8c8;
+            margin-bottom: 20px;
+            height: 40px;
+        }
+        .outer-menu-item{       
+            float: left;
+        }
+        .outer-menu-item:hover{  
+            background: gray;
+            color: white;
+        }
+        .menu-title{
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            padding: 5px 20px;
+        }
+    </style>
+    <style>
+        #content{       
+            overflow: hidden;
+        }
+        #main-section{     
+            float: left;
+            width: 710px;
+        }
+        #main-aside{
+            float: left;
+            width: 200px;
+        }
+    </style>
+    <style>
+        article{    
+            padding: 0 10px 20px 10px;
+            border-bottom: 1px solid #c8c8c8;
+        }
+        .article-header{
+            padding: 30px 0;
+        }
+        .article-title{
+            font-size: 25px;
+            font-weight: 500;
+            padding-bottom: 10px;
+        }
+        .article-address{
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        .article-body{
+            font-size: 18px;
+        }
+    </style>
+    <style>
+        .aside-list{       
+            padding: 10px 0 30px 0;
+        }
+        .aside-list > h3{
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .aside-list > h3:hover {
+        cursor: pointer;
+        }
+        .aside-list li a{
+            margin-left: 8px;
+            font-size: 13px;
+            color: #6c6c6c;
+        }
+    </style>
+</head>
+<body onload="showTime()">
+<div id="page-wrapper">
+    <header id="main-header">
+        <hgroup>
+            <h1><a href="/board/JEJU.html">JEJU</a></h1>
+            <div id="current-time"></div>
+        </hgroup>
+    </header>
+    <nav id="main-navigation">
+        <div>
+            <ul class="outer-menu">
+                <li class="outer-menu-item">
+                    <span class="menu-title"><a href="/board/섭지코지.html">섭지코지</a></span>
+                </li>
+                <li class="outer-menu-item">
+                    <span class="menu-title"><a href="/board/우도.html">우도</a></span>
+                </li>
+                <li class="outer-menu-item">
+                    <span class="menu-title"><a href="/board/만장굴.html">만장굴</a></span>
+                </li>
+                <li class="outer-menu-item">
+                    <span class="menu-title"><a href="/board/오설록티뮤지엄.html">오설록 티 뮤지엄</a></span>
+                </li>
+                <li class="outer-menu-item">
+                    <span class="menu-title"><a href="/board/쇠소깍.html">쇠소깍</a></span>
+                </li>
+                <li class="outer-menu-item">
+                    <span class="menu-title"><a href="/board/대포해안주상절리대.html">대포해안주상절리대</a></span>
+                </li>
+                <li class="outer-menu-item">
+                    <span class="menu-title"><a href="/board/list">공지게시판</a></span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="content">
+        <section id="main-section">
+            <article>
+                <div class="article-header">
+                    <h1 class="article-title">제주도</h1>
+                    <p class="article-address">JEJU</p>
+                    <img src="/board/img/jeju02.jpg" width="600">
+                </div>
+                <div class="article-body" style="border:1px solid black; padding:20px; margin:10px;">
+                    <br>
+                    <p>대한민국의 남서쪽에 있는 섬. 행정구역 상 광역자치단체인 제주특별자치도의 관할.
+                        한국의 섬 중에서 가장 크고 인구가 많은 섬으로 면적은 1,833.2㎢이다.
+                        이는 대한민국 본토에서 가장 큰 기초자치단체인 홍천군(1,820.14㎢)보다 약간 크며, 제주도 다음 2번째 큰 섬인 거제도(379.5㎢)의 5배 정도 된다.
+                        인구는 약 70만 명, 세계 섬 크기 218위이다.동아시아권 전체로 범위를 넓혀도 꽤 큰 섬이다.
+                        6,000개가 넘는 섬이 있는 일본조차도 본토로 간주되는 혼슈, 홋카이도, 시코쿠, 규슈 4개 섬을 제외한 나머지 모든 섬이 제주도보다 작다.
+                        중국도 하이난 섬 한 곳만이 제주도보다 클 뿐이다.
+                        하와이에서도 최대 섬인 하와이 섬 다음으로 큰 섬인 마우이 섬이 제주도보다 약간 큰 정도이다.
+                        미국도 본토만 따지면 제주도보다 큰 섬은 롱아일랜드 뿐이다.
+                        프랑스도 본토에는 제주도보다 큰 섬이 코르시카 섬밖에 없고, 독일에서 가장 큰 섬인 뤼겐 섬은 제주도보다 작다.
+                        크기에 대한 직접적인 비교를 하자면 제주도의 동서 길이 약 73km, 남 길이 약 31km를 대입하여 서울시청 기준 동서 길이로 인천광역시 서구 오류동 거첨도에서 출발하여 경기도 양평군 서종면에 도달하고 남북 길이로는 송추계곡에서 출발하여 관악산에 이르는 수준이다.</p>
+                </div>
+            </article>
+        </section>
+        <aside id="main-aside">
+            <div class="aside-list">
+                <h3>카테고리</h3>
+                <ul>
+                    <li><a href="/board/섭지코지.html">섭지코지</a></li>
+                    <li><a href="/board/우도.html">우도</a></li>
+                    <li><a href="/board/만장굴.html">만장굴</a></li>
+                    <li><a href="/board/오설록티뮤지엄.html">오설록 티 뮤지엄</a></li>
+                    <li><a href="/board/쇠소깍.html">쇠소깍</a></li>
+                    <li><a href="/board/대포해안주상절리대.html">대포해안주상절리대</a></li>
+                    <li><a href="/board/list">공지게시판</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+    <footer id="main-footer">
+        <a href="/board/JEJU.html">Home</a>
+    </footer>
+</div>
+</body>

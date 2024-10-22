@@ -19,7 +19,7 @@ public class BoardServiceTests {
         BoardDTO dto = BoardDTO.builder()
                 .title("101 Board Test...")
                 .content("101 Board Test Board Test Board Test")
-                .writerEmail("user7@kopo.ac.kr")
+                .writerEmail("user7@gmail.com")
                 .build();
         Long bno = boardService.register(dto);
         System.out.println("정상적으로 글이 저장되었습니다. : "+bno);

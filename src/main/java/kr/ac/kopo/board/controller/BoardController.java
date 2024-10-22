@@ -12,11 +12,53 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 @Controller
 @RequestMapping("/board/")
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+
+    @GetMapping("/JEJU.html")
+    public String main() {
+        return "board/JEJU";
+    }
+
+    @GetMapping("/대포해안주상절리대.html")
+    public String daepoh() {
+        return "board/대포해안주상절리대";
+    }
+
+    @GetMapping("/만장굴.html")
+    public String manjanggul() {
+        return "board/만장굴";
+    }
+
+    @GetMapping("/섭지코지.html")
+    public String seopjikoji() {
+        return "board/섭지코지";
+    }
+
+    @GetMapping("/쇠소깍.html")
+    public String soesokkak() {
+        return "board/쇠소깍";
+    }
+
+    @GetMapping("/오설록티뮤지엄.html")
+    public String oSulloc() {
+        return "board/오설록티뮤지엄";
+    }
+
+    @GetMapping("/우도.html")
+    public String udo() {
+        return "board/우도";
+    }
+
+    @GetMapping("/list.html")
+    public String list1(PageRequestDTO pageRequestDTO, Model model) {
+        model.addAttribute("result", boardService.getList(pageRequestDTO));
+        return "board/list";
+    }
 
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model){
@@ -25,7 +67,6 @@ public class BoardController {
 
     @GetMapping("/register")
     public void register(){
-
     }
 
     @PostMapping("/register")

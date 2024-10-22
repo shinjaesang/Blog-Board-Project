@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEJU</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('body').hide().fadeIn(1000);
+            alert('우도!');
+        });
+
+        // 이미지 슬라이드 설정
+        var slideIndex = 0;
+        var slideImages = [
+        '/img/우도.png', // 첫 번째 이미지 파일
+        '/img/우도1.png', // 두 번째 이미지 파일
+        '/img/우도2.png', // 세 번째 이미지 파일
+        '/img/우도3.png',
+        '/img/우도4.png'
+        ];
+        function changeImage() {
+        $('.article-header img').attr('src', slideImages[slideIndex]); // 현재 슬라이드 인덱스에 해당하는 이미지로 변경
+        slideIndex = (slideIndex + 1) % slideImages.length; // 다음 슬라이드 인덱스로 이동 (순환)
+        }
+        $(document).ready(function () {
+        setInterval(changeImage, 2000); // 1초 간격으로 이미지 변경
+        });
+
+        function showTime() {
+            var currentDate = new Date();
+            var hours = currentDate.getHours();
+            var minutes = currentDate.getMinutes();
+            var seconds = currentDate.getSeconds();
+            var currentTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+            
+            document.getElementById('current-time').innerHTML = currentTime;
+            setTimeout(showTime, 1000);
+        }
+        $(document).ready(function() {
+            $('body').hide().fadeIn(1000);
+        });
+        $(document).ready(function(){
+        
+
+        // 페이지 내부의 링크 클릭 시 부드럽게 스크롤되도록 하는 코드
+        $("a[href^='#']").click(function(e) {
+            e.preventDefault();
+            
+            var position = $($(this).attr("href")).offset().top;
+
+            $("body, html").animate({
+                scrollTop: position
+            }, 500);
+        });
+
+        // 페이지 최상단으로 이동하는 버튼을 만들고, 스크롤 위치에 따라 보이거나 숨기는 코드
+        $('body').append('<div style="display: none; position: fixed; bottom: 20px; right: 20px;" id="toTopButton"><a href="#main-header">Top</a></div>');
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 100) { 
+                $('#toTopButton').fadeIn(); 
+            } else { 
+                $('#toTopButton').fadeOut(); 
+            } 
+        }); 
+        $('#toTopButton').click(function(){ 
+            $("html, body").animate({ scrollTop: 0 }, 600); 
+            return false; 
+        }); 
+
+        $('.article-header').hide().fadeIn(1000);
+
+        // article-body 부분을 초기에 숨김
+        $(".article-body").hide();
+
+        // 이미지를 클릭했을 때 article-body 부분을 표시
+        $(".article-header img").click(function(){
+            $(this).parent().next('.article-body').slideToggle();
+        });
+
+        // 마우스를 올렸을 때 글자 크기를 증가시키는 이벤트를 추가합니다.
+        $('.aside-list li a').hover(function(){
+            $(this).animate({fontSize: '+=2px'}, 100);
+        }, function(){
+            $(this).animate({fontSize: '-=2px'}, 100);
+        });
+
+        // 카테고리 목록을 초기에 숨김
+        $(".aside-list ul").hide();
+
+        // 카테고리 제목을 클릭했을 때 목록을 표시 또는 숨김
+        $(".aside-list > h3").click(function(){
+            $(this).next('ul').slideToggle();
+        });
+    });
+    </script>
+    <style>
+        *{margin: 0; padding: 0;
+            font-family: '맑은 고딕', 'Malgun Gothic', 'Gothic', sans-serif;
+        }
+        a{
+            text-decoration: none;
+        }
+        li{
+            list-style: none;
+        }
+    </style>
+    <style>
+        body{
+            width: 960px;
+            margin: 0 auto;
+            background: #293529;
+        }
+        #page-wrapper{
+            background: white;
+            margin: 40px 0;
+            padding: 10px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 10px rgb(185, 182, 182);
+        }
+    </style>
+    <style>
+        #main-header{
+            padding: 40px 50px;
+        }
+    </style>
+    <style>
+        #main-navigation{
+            border-top: 1px solid #c8c8c8;
+            border-bottom: 1px solid #c8c8c8;
+            margin-bottom: 20px;
+            height: 40px;
+        }
+        .outer-menu-item{
+            float: left;
+            position: relative;
+        }
+        .outer-menu-item:hover{
+            background: gray;
+            color: white;
+        }
+        .menu-title{
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            padding: 5px 20px;
+        }
+    </style>
+    <style>
+        #content{
+            overflow: hidden;
+        }
+        #main-section{
+            float: left;
+            width: 710px;
+        }
+        #main-aside{
+            float: left;
+            width: 200px;
+        }
+    </style>
+    <style>
+        article{
+            padding: 0 10px 20px 10px;
+            border-bottom: 1px solid #c8c8c8;
+        }
+        .article-header{
+            padding: 30px 0;
+        }
+        .article-title{
+            font-size: 25px;
+            font-weight: 500;
+            padding-bottom: 10px;
+        }
+        .article-address{
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        .article-body{
+            font-size: 18px;
+        }
+    </style>
+    <style>
+        .aside-list{
+            padding: 10px 0 30px 0;
+        }
+        .aside-list > h3{
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .aside-list > h3:hover {
+        cursor: pointer;
+        }
+        .aside-list li a{
+            margin-left: 8px;
+            font-size: 13px;
+            color: #6c6c6c;
+        }
+    </style>
+</head>
+<body onload="showTime()">
+    
+    <div id="page-wrapper">
+        <header id="main-header">
+            <hgroup>
+                <h1><a href="JEJU.html">JEJU</a></h1>
+                <div id="current-time"></div>
+            </hgroup>
+        </header>
+        <nav id="main-navigation">
+            <div>
+                <ul>
+                    <li class="outer-menu-item">
+                       <span class="menu-title"><a href="섭지코지.html">섭지코지</a></span>
+                    </li>
+                    <li class="outer-menu-item">
+                        <span class="menu-title"><a href="우도.html">우도</a></span>  
+                    </li>
+                    <li class="outer-menu-item">
+                        <span class="menu-title"><a href="만장굴.html">만장굴</a></span>
+                    </li>
+                    <li class="outer-menu-item">
+                        <span class="menu-title"><a href="오설록티뮤지엄.html">오설록 티 뮤지엄</a></span>  
+                    </li>
+                    <li class="outer-menu-item">
+                        <span class="menu-title"><a href="쇠소깍.html">쇠소깍</a></span>
+                    </li>
+                    <li class="outer-menu-item">
+                        <span class="menu-title"><a href="대포해안주상절리대.html">대포해안주상절리대</a></span>
+                    </li>
+                    <li class="outer-menu-item">
+                        <span class="menu-title"><a href="/board/list">공지게시판</a></span>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="content">
+            <section id="main-section">
+                <article>
+                    <div class="article-header">
+                        <h1 class="article-title">우도</h1>
+                        <p class="article-address">제주시의 면 우도면</p>
+                        <img src="../../static/img/우도.jpg" width="600">
+                    </div>
+                    <div class="article-body" style="border:1px solid black; padding:20px; margin:10px;">
+                        <br>
+                        <p>제주특별자치도에 소속되어 있는 부속도들 중 1곳이자 제주특별자치도의 최동단.
+                            제주도에서는 본섬인 제주도를 제외하면 가장 넓다(6.18제곱킬로미터).
+                            명칭은 소(牛)가 옆으로 누워있는 모습과 닮았다고 해서 우도(牛島)로 붙였다고 전한다.
+                            바다 쪽에서 우도봉 쪽을 바라보면 소(牛)가 옆으로 누워 있는 모습과 같다고 한다.
+                            행정구역은 제주특별자치도 제주시 우도면이며, 면소재지는 우도면에 있는 유일한 법정리인 연평리다.
+                            우도로 들어갈 수 있는 선박은 구좌읍 종달리와 성산읍 성산항에서 배를 타야 되는데, 성산항에서 배가 더 많이 출항해서 우도의 생활권도 사실상 성산읍 쪽이다.
+                            잇달은 영화와 드라마 촬영으로 상당히 유명해졌으며 여름 성수기면 우도로 들어가는 여객선은 발디딜 틈이 없다.
+                            섬 전체가 완전히 관광지화 되었다. 옛 모습을 기억하고 다시 찾았다가 180도 달라진 풍경에 실망하는 경우가 많다.
+                            난개발과 몰려오는 관광객들로 인해 옛 모습이 남은 게 거의 없다.
+                            </p>
+                    </div>
+                </article>
+            </section>
+            <aside id="main-aside">
+                <div class="aside-list">
+                    <h3>맛집</h3>
+                    <ul>
+                        <li><a href="https://naver.me/xTeSs8r8">우도해녀식당</a></li>
+                        <li><a href="https://naver.me/Gw5EIOr5">로뎀가든</a></li>
+                        <li><a href="https://naver.me/G0I0R6og">우도꽃길</a></li>
+                        <li><a href="https://naver.me/GEAu7V7b">우도물들이 해녀의집</a></li>
+                        <li><a href="https://naver.me/GaMTLpYg">풍원</a></li>
+                        <li><a href="https://naver.me/xE1AzF1o">우도해광식당</a></li>
+                    </ul>
+                    <br>
+                    <h3>카페</h3>
+                    <ul>
+                        <li><a href="https://naver.me/xw692gtP">블랑로쉐</a></li>
+                        <li><a href="https://naver.me/x9JcYIUq">봉끄랑</a></li>
+                        <li><a href="https://naver.me/xw692gtP">블랑로쉐</a></li>
+                        <li><a href="https://naver.me/FIgYnGWt">카페살레</a></li>
+                        <li><a href="https://naver.me/5AmfrB37">달콤아재</a></li>
+                        <li><a href="https://naver.me/GZ0OziK7">훈데르트윈즈</a></li>
+                    </ul>
+                    <br>
+                    <h3>가볼만한곳</h3>
+                    <ul>
+                        <li><a href="https://naver.me/Fn2MdnGe">검멀레해수욕장</a></li>
+                        <li><a href="https://naver.me/5rsjlRpi">동안경굴</a></li>
+                        <li><a href="https://naver.me/5Z0vjnbI">우도봉</a></li>
+                        <li><a href="https://naver.me/5SB202ql">훈데르트바서파크</a></li>
+                        <li><a href="https://naver.me/GGhMYf6n">우도등대공원</a></li>
+                        <li><a href="https://naver.me/55IayhXw">우도 봉수대</a></li>
+                    </ul>
+                    <br>
+                    <h3>공지게시판</h3>
+                    <ul>
+                        <li><a href="/board/list">공지게시판</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <footer id="main-footer">
+            <a href="JEJU.html">Home</a>
+        </footer>
+    </div>
+</body>
