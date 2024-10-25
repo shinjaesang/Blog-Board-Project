@@ -1,19 +1,23 @@
 package kr.ac.kopo.board.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import java.util.List;
 
 @Entity
 @Builder
-@AllArgsConstructor //
-@NoArgsConstructor // 기본생성자
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
-@ToString
-public class Member extends BaseEntity{
-    @Id
-    private String email;
+@ToString(exclude = "boards")
+public class Member extends BaseEntity {
 
-    private String password;
-    private String name;
+    @Id
+    private String email; // 이메일을 기본키로 설정
+
+    private String password; // 비밀번호
+    private String name; // 이름
+
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Board> boards; // 작성한 게시글 목록
 }

@@ -21,20 +21,48 @@ public class BoardRepositoryTests {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private MemberRepository memberRepository; // MemberRepository 추가
+
+
+    @Test
+    public void insertBoards() {
+        // 미리 생성된 회원을 무작위로 할당하여 게시글 작성자로 설정
+        memberRepository.findAll().forEach(member -> {
+            IntStream.rangeClosed(1, 5).forEach(i -> {
+                Board board = Board.builder()
+                        .title("Title " + i + " by " + member.getName())
+                        .content("Content " + i)
+                        .writer(member)
+                        .build();
+                boardRepository.save(board);
+            });
+        });
+
+        long boardCount = boardRepository.count();
+        System.out.println("저장된 총 게시글 수: " + boardCount);
+        assert boardCount >= 100 : "게시글이 올바르게 저장되지 않았습니다!";
+    }
+
     @Test
     public void insertBoard(){
-        IntStream.rangeClosed(1, 100).forEach(i ->{
+        IntStream.rangeClosed(1, 100).forEach(i -> {
+            // Member를 먼저 저장
             Member member = Member.builder()
-                    .email("user"+i+"@gmail.com")
+                    .email("user" + i + "@gmail.com")
+                    .name("user")
                     .build();
 
+            member = memberRepository.save(member); // Member 저장
+
+            // Board 객체 생성
             Board board = Board.builder()
-                    .title("Title  " + i)
-                    .content("Content "+ i)
-                    .writer(member)
+                    .title("Title " + i)
+                    .content("Content " + i)
+                    .writer(member) // 저장된 Member 사용
                     .build();
 
-            boardRepository.save(board);
+            boardRepository.save(board); // Board 저장
         });
     }
 
@@ -57,7 +85,6 @@ public class BoardRepositoryTests {
 
     @Test
     public void testReadWithReply() {
-
         List<Object[]> result = boardRepository.getBoardWithReply(77L);
         for (Object[] arr: result){
             System.out.println(Arrays.toString(arr));
@@ -92,5 +119,4 @@ public class BoardRepositoryTests {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
         boardRepository.searchPage("t", "5", pageable);
     }
-
 }

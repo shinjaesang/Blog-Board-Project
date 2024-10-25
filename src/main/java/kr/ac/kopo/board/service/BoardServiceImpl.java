@@ -25,6 +25,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Long register(BoardDTO dto) {
         try {
+
             Board board = dtoToEntity(dto);
             repository.save(board);
             return board.getBno();
@@ -47,8 +48,14 @@ public class BoardServiceImpl implements BoardService {
         if (result == null) {
             throw new RuntimeException("해당 게시글을 찾을 수 없습니다.");
         }
+
         Object[] arr = (Object[]) result;
-        return entityToDTO((Board) arr[0], (Member) arr[1], (Long) arr[2]);
+
+        // 작성자 정보를 제대로 확인하고 반환
+        Member writer = (Member) arr[1]; // 작성자 정보를 가져옴
+        Long replyCount = (Long) arr[2]; // 댓글 수
+
+        return entityToDTO((Board) arr[0], writer, replyCount); // 작성자 정보를 포함하여 DTO 변환
     }
 
     @Transactional
@@ -73,6 +80,7 @@ public class BoardServiceImpl implements BoardService {
             if (board == null) {
                 throw new RuntimeException("해당 게시글을 찾을 수 없습니다.");
             }
+            // 제목과 내용을 수정
             board.changeTitle(boardDTO.getTitle());
             board.changeContent(boardDTO.getContent());
             repository.save(board);

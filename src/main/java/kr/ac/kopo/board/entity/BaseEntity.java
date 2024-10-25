@@ -1,6 +1,5 @@
 package kr.ac.kopo.board.entity;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -15,11 +14,12 @@ import java.time.LocalDateTime;
 @EntityListeners(value = {AuditingEntityListener.class})
 @Getter
 abstract class BaseEntity {
+
     @CreatedDate
     @Column(name = "regDate", updatable = false)
     private LocalDateTime regDate; // 등록한 날짜 및 시간
 
     @LastModifiedDate
-    @Column(name = "modDate") // 수정한 날짜는 계속 갱신되어야함. updatable이 true거나 생략
+    @Column(name = "modDate")
     private LocalDateTime modDate; // 수정한 날짜 및 시간
 }

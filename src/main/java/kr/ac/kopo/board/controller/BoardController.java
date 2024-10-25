@@ -2,6 +2,8 @@ package kr.ac.kopo.board.controller;
 
 import kr.ac.kopo.board.dto.BoardDTO;
 import kr.ac.kopo.board.dto.PageRequestDTO;
+import kr.ac.kopo.board.entity.Member;
+import kr.ac.kopo.board.repository.MemberRepository;
 import kr.ac.kopo.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/JEJU.html")
     public String main() {
